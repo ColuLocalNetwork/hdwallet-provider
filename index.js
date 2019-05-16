@@ -1,1 +1,1 @@
-const HDWalletProvider = require("truffle-hdwallet-provider");
+module.exports = require("truffle-hdwallet-provider");
