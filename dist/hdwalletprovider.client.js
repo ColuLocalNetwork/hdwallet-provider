@@ -75420,6 +75420,7 @@ function extend() {
 
 },{}],384:[function(require,module,exports){
 (function (Buffer){
+"use strict";
 const bip39 = require("bip39");
 const ethJSWallet = require("ethereumjs-wallet");
 const hdkey = require("ethereumjs-wallet/hdkey");
