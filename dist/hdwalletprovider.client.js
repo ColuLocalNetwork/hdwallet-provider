@@ -37841,8 +37841,9 @@ const min = 60 * sec
 
 class RpcBlockTracker extends EventEmitter {
 
-  constructor(opts = {}) {
+  constructor(opts) {
     super()
+    opts = opts || {} 
     if (!opts.provider) throw new Error('RpcBlockTracker - no provider specified.')
     this._provider = opts.provider
     this._query = new EthQuery(opts.provider)
