@@ -1,4 +1,3 @@
-"use strict";
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.HDWalletProvider = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 module.exports = require('./register')().Promise
 
@@ -8496,7 +8495,6 @@ module.exports = exports['default'];
 const Buffer = require('safe-buffer').Buffer
 
 module.exports = function base (ALPHABET) {
-
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
   const BASE_MAP = new Uint8Array(256)
@@ -37829,7 +37827,6 @@ function formatHex (hexNum) {
 }
 
 },{"ethjs-util":167}],136:[function(require,module,exports){
-"use strict";
 // const EthQuery = require('ethjs-query')
 const EthQuery = require('eth-query')
 const EventEmitter = require('events')
@@ -37841,9 +37838,8 @@ const min = 60 * sec
 
 class RpcBlockTracker extends EventEmitter {
 
-  constructor(opts) {
+  constructor(opts = {}) {
     super()
-    opts = opts || {} 
     if (!opts.provider) throw new Error('RpcBlockTracker - no provider specified.')
     this._provider = opts.provider
     this._query = new EthQuery(opts.provider)
