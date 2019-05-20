@@ -37829,6 +37829,7 @@ function formatHex (hexNum) {
 }
 
 },{"ethjs-util":167}],136:[function(require,module,exports){
+"use strict";
 // const EthQuery = require('ethjs-query')
 const EthQuery = require('eth-query')
 const EventEmitter = require('events')
