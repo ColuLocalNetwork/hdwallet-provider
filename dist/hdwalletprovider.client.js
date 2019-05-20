@@ -1,4 +1,3 @@
-"use-strict";
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.HDWalletProvider = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 module.exports = require('./register')().Promise
 
@@ -673,7 +672,7 @@ Node.prototype._decode = function decode(input, options) {
     // Decode children
     if (!state.any && state.choice === null && state.children !== null) {
       state.children.forEach(function decodeChildren(child) {
-        // NOTE: We are ignoring errors here, to let parser continue with other
+        // NOTE: We are ignoring errors here, to var parser continue with other
         // parts of encoded data
         child._decode(input, options);
       });
@@ -6266,7 +6265,7 @@ function reflect(fn) {
  * `async.reflect`
  * @example
  *
- * let tasks = [
+ * var tasks = [
  *     function(callback) {
  *         setTimeout(function() {
  *             callback(null, 'one');
@@ -6293,7 +6292,7 @@ function reflect(fn) {
  * });
  *
  * // an example using an object instead of an array
- * let tasks = {
+ * var tasks = {
  *     one: function(callback) {
  *         setTimeout(function() {
  *             callback(null, 'one');
@@ -8496,14 +8495,13 @@ module.exports = exports['default'];
 const Buffer = require('safe-buffer').Buffer
 
 module.exports = function base (ALPHABET) {
-  "use-strict";
-  
+
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
   const BASE_MAP = new Uint8Array(256)
   BASE_MAP.fill(255)
 
-  for (let i = 0; i < ALPHABET.length; i++) {
+  for (var i = 0; i < ALPHABET.length; i++) {
     const x = ALPHABET.charAt(i)
     const xc = x.charCodeAt(0)
 
@@ -8521,9 +8519,9 @@ module.exports = function base (ALPHABET) {
     if (source.length === 0) return ''
 
     // Skip & count leading zeroes.
-    let zeroes = 0
-    let length = 0
-    let pbegin = 0
+    var zeroes = 0
+    var length = 0
+    var pbegin = 0
     const pend = source.length
 
     while (pbegin !== pend && source[pbegin] === 0) {
@@ -8537,11 +8535,11 @@ module.exports = function base (ALPHABET) {
 
     // Process the bytes.
     while (pbegin !== pend) {
-      let carry = source[pbegin]
+      var carry = source[pbegin]
 
       // Apply "b58 = b58 * 256 + ch".
-      let i = 0
-      for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
+      var i = 0
+      for (var it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
         carry += (256 * b58[it]) >>> 0
         b58[it] = (carry % BASE) >>> 0
         carry = (carry / BASE) >>> 0
@@ -8553,13 +8551,13 @@ module.exports = function base (ALPHABET) {
     }
 
     // Skip leading zeroes in base58 result.
-    let it = size - length
+    var it = size - length
     while (it !== size && b58[it] === 0) {
       it++
     }
 
     // Translate the result into a string.
-    let str = LEADER.repeat(zeroes)
+    var str = LEADER.repeat(zeroes)
     for (; it < size; ++it) str += ALPHABET.charAt(b58[it])
 
     return str
@@ -8569,14 +8567,14 @@ module.exports = function base (ALPHABET) {
     if (typeof source !== 'string') throw new TypeError('Expected String')
     if (source.length === 0) return Buffer.alloc(0)
 
-    let psz = 0
+    var psz = 0
 
     // Skip leading spaces.
     if (source[psz] === ' ') return
 
     // Skip and count leading '1's.
-    let zeroes = 0
-    let length = 0
+    var zeroes = 0
+    var length = 0
     while (source[psz] === LEADER) {
       zeroes++
       psz++
@@ -8589,13 +8587,13 @@ module.exports = function base (ALPHABET) {
     // Process the characters.
     while (source[psz]) {
       // Decode character
-      let carry = BASE_MAP[source.charCodeAt(psz)]
+      var carry = BASE_MAP[source.charCodeAt(psz)]
 
       // Invalid character
       if (carry === 255) return
 
-      let i = 0
-      for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
+      var i = 0
+      for (var it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
         carry += (BASE * b256[it]) >>> 0
         b256[it] = (carry % 256) >>> 0
         carry = (carry / 256) >>> 0
@@ -8610,7 +8608,7 @@ module.exports = function base (ALPHABET) {
     if (source[psz] === ' ') return
 
     // Skip leading zeroes in b256.
-    let it = size - length
+    var it = size - length
     while (it !== size && b256[it] === 0) {
       it++
     }
@@ -8618,7 +8616,7 @@ module.exports = function base (ALPHABET) {
     const vch = Buffer.allocUnsafe(zeroes + (size - it))
     vch.fill(0x00, 0, zeroes)
 
-    let j = zeroes
+    var j = zeroes
     while (it !== size) {
       vch[j++] = b256[it++]
     }
@@ -37822,7 +37820,7 @@ function incrementHexNumber(hexNum) {
 }
 
 function formatHex (hexNum) {
-  let stripped = ethjsUtil.stripHexPrefix(hexNum)
+  var stripped = ethjsUtil.stripHexPrefix(hexNum)
   while (stripped[0] === '0') {
     stripped = stripped.substr(1)
   }
@@ -37994,7 +37992,7 @@ class RpcBlockTracker extends EventEmitter {
   async _initSubscription() {
     this._provider.on('data', this._handleNewBlockNotification)
 
-    let result = await pify(this._provider.sendAsync || this._provider.send)({
+    var result = await pify(this._provider.sendAsync || this._provider.send)({
       jsonrpc: '2.0',
       id: new Date().getTime(),
       method: 'eth_subscribe',
@@ -41857,7 +41855,7 @@ exports.defineProperties = function (self, fields, data) {
 'use strict';
 
 var HDKey = require('hdkey');
-var Wallet = require('./index.js');
+var Walvar = require('./index.js');
 
 function EthereumHDKey() {}
 
@@ -41897,7 +41895,7 @@ EthereumHDKey.prototype.deriveChild = function (index) {
   return fromHDKey(this._hdkey.deriveChild(index));
 };
 
-EthereumHDKey.prototype.getWallet = function () {
+EthereumHDKey.prototype.getWalvar = function () {
   if (this._hdkey._privateKey) {
     return Wallet.fromPrivateKey(this._hdkey._privateKey);
   } else {
@@ -41929,7 +41927,7 @@ function decipherBuffer(decipher, data) {
   return Buffer.concat([decipher.update(data), decipher.final()]);
 }
 
-var Wallet = function Wallet(priv, pub) {
+var Walvar = function Wallet(priv, pub) {
   if (priv && pub) {
     throw new Error('Cannot supply both a private and a public key to the constructor');
   }
@@ -42209,7 +42207,7 @@ Wallet.fromEthSale = function (input, password) {
   var decipher = crypto.createDecipheriv('aes-128-cbc', derivedKey, encseed.slice(0, 16));
   var seed = decipherBuffer(decipher, encseed.slice(16));
 
-  var wallet = new Wallet(ethUtil.keccak256(seed));
+  var walvar = new Wallet(ethUtil.keccak256(seed));
   if (wallet.getAddress().toString('hex') !== json.ethaddr) {
     throw new Error('Decoded key mismatch - possibly wrong passphrase');
   }
@@ -63098,7 +63096,7 @@ UChar.udata={
       1. Let O be CheckObjectCoercible(this value).
       2. Let S be ToString(O).
       3. ReturnIfAbrupt(S).
-      4. If form is not provided or undefined let form be "NFC".
+      4. If form is not provided or undefined var form be "NFC".
       5. Let f be ToString(form).
       6. ReturnIfAbrupt(f).
       7. If f is not one of "NFC", "NFD", "NFKC", or "NFKD", then throw a RangeError Exception.
@@ -64563,20 +64561,20 @@ Method.prototype._confirmTransaction = function (defer, result, payload) {
 };
 
 
-var getWallet = function(from, accounts) {
-    var wallet = null;
+var getWalvar = function(from, accounts) {
+    var walvar = null;
 
     // is index given
     if (_.isNumber(from)) {
-        wallet = accounts.wallet[from];
+        walvar = accounts.wallet[from];
 
         // is account given
     } else if (_.isObject(from) && from.address && from.privateKey) {
-        wallet = from;
+        walvar = from;
 
-        // search in wallet for address
+        // search in walvar for address
     } else {
-        wallet = accounts.wallet[from.toLowerCase()];
+        walvar = accounts.wallet[from.toLowerCase()];
     }
 
     return wallet;
@@ -64647,27 +64645,27 @@ Method.prototype.buildCall = function() {
 
         var sendRequest = function(payload, method) {
 
-            if (method && method.accounts && method.accounts.wallet && method.accounts.wallet.length) {
+            if (method && method.accounts && method.accounts.walvar && method.accounts.wallet.length) {
                 var wallet;
 
                 // ETH_SENDTRANSACTION
                 if (payload.method === 'eth_sendTransaction') {
                     var tx = payload.params[0];
-                    wallet = getWallet((_.isObject(tx)) ? tx.from : null, method.accounts);
+                    walvar = getWallet((_.isObject(tx)) ? tx.from : null, method.accounts);
 
 
-                    // If wallet was found, sign tx, and send using sendRawTransaction
-                    if (wallet && wallet.privateKey) {
+                    // If walvar was found, sign tx, and send using sendRawTransaction
+                    if (walvar && wallet.privateKey) {
                         return method.accounts.signTransaction(_.omit(tx, 'from'), wallet.privateKey).then(sendSignedTx);
                     }
 
                     // ETH_SIGN
                 } else if (payload.method === 'eth_sign') {
                     var data = payload.params[1];
-                    wallet = getWallet(payload.params[0], method.accounts);
+                    walvar = getWallet(payload.params[0], method.accounts);
 
-                    // If wallet was found, sign tx, and send using sendRawTransaction
-                    if (wallet && wallet.privateKey) {
+                    // If walvar was found, sign tx, and send using sendRawTransaction
+                    if (walvar && wallet.privateKey) {
                         var sign = method.accounts.sign(data, wallet.privateKey);
 
                         if (payload.callback) {
@@ -66727,7 +66725,7 @@ var Accounts = function Accounts() {
     });
 
 
-    this.wallet = new Wallet(this);
+    this.walvar = new Wallet(this);
 };
 
 Accounts.prototype._addAccountFunctions = function (account) {
@@ -67962,7 +67960,7 @@ Contract.prototype._executeMethod = function _executeMethod(){
                     inputFormatter: [formatters.inputCallFormatter],
                     outputFormatter: utils.hexToNumber,
                     requestManager: _this._parent._requestManager,
-                    accounts: ethAccounts, // is eth.accounts (necessary for wallet signing)
+                    accounts: ethAccounts, // is eth.accounts (necessary for walvar signing)
                     defaultAccount: _this._parent.defaultAccount,
                     defaultBlock: _this._parent.defaultBlock
                 })).createFunction();
@@ -67983,7 +67981,7 @@ Contract.prototype._executeMethod = function _executeMethod(){
                         return _this._parent._decodeMethodReturn(_this._method.outputs, result);
                     },
                     requestManager: _this._parent._requestManager,
-                    accounts: ethAccounts, // is eth.accounts (necessary for wallet signing)
+                    accounts: ethAccounts, // is eth.accounts (necessary for walvar signing)
                     defaultAccount: _this._parent.defaultAccount,
                     defaultBlock: _this._parent.defaultBlock
                 })).createFunction();
@@ -68053,7 +68051,7 @@ Contract.prototype._executeMethod = function _executeMethod(){
                     params: 1,
                     inputFormatter: [formatters.inputTransactionFormatter],
                     requestManager: _this._parent._requestManager,
-                    accounts: _this.constructor._ethAccounts || _this._ethAccounts, // is eth.accounts (necessary for wallet signing)
+                    accounts: _this.constructor._ethAccounts || _this._ethAccounts, // is eth.accounts (necessary for walvar signing)
                     defaultAccount: _this._parent.defaultAccount,
                     defaultBlock: _this._parent.defaultBlock,
                     extraFormatters: extraFormatters
@@ -70116,7 +70114,7 @@ var Eth = function Eth() {
 
     methods.forEach(function(method) {
         method.attachToObject(_this);
-        method.setRequestManager(_this._requestManager, _this.accounts); // second param means is eth.accounts (necessary for wallet signing)
+        method.setRequestManager(_this._requestManager, _this.accounts); // second param means is eth.accounts (necessary for walvar signing)
         method.defaultBlock = _this.defaultBlock;
         method.defaultAccount = _this.defaultAccount;
     });
@@ -70913,7 +70911,7 @@ function bufferToNumberHex(buffer) {
 }
 
 function stripLeadingZero(hexNum) {
-  let stripped = ethUtil.stripHexPrefix(hexNum)
+  var stripped = ethUtil.stripHexPrefix(hexNum)
   while (stripped[0] === '0') {
     stripped = stripped.substr(1)
   }
@@ -71015,8 +71013,8 @@ HookedWalletSubprovider.prototype.handleRequest = function(payload, next, end){
 
   // switch statement is not block scoped
   // sp we cant repeat var declarations
-  let txParams, msgParams, extraParams
-  let message, address
+  var txParams, msgParams, extraParams
+  var message, address
 
   switch(payload.method) {
 
@@ -71024,7 +71022,7 @@ HookedWalletSubprovider.prototype.handleRequest = function(payload, next, end){
       // process normally
       self.getAccounts(function(err, accounts){
         if (err) return end(err)
-        let result = accounts[0] || null
+        var result = accounts[0] || null
         end(null, result)
       })
       return
@@ -71083,7 +71081,7 @@ HookedWalletSubprovider.prototype.handleRequest = function(payload, next, end){
       // That means when the first param is definitely an address,
       // and the second param is definitely not, but is hex.
       if (resemblesData(second) && resemblesAddress(first)) {
-        let warning = `The eth_personalSign method requires params ordered `
+        var warning = `The eth_personalSign method requires params ordered `
         warning += `[message, address]. This was previously handled incorrectly, `
         warning += `and has been corrected automatically. `
         warning += `Please switch this param order for smooth behavior in the future.`
@@ -71111,7 +71109,7 @@ HookedWalletSubprovider.prototype.handleRequest = function(payload, next, end){
 
     case 'personal_ecRecover':
       message = payload.params[0]
-      let signature = payload.params[1]
+      var signature = payload.params[1]
       // non-standard "extraParams" to be appended to our "msgParams" obj
       // good place for metadata
       extraParams = payload.params[2] || {}
@@ -71306,7 +71304,7 @@ HookedWalletSubprovider.prototype.parityCheckRequest = function(reqId, cb) {
 //
 
 HookedWalletSubprovider.prototype.recoverPersonalSignature = function(msgParams, cb) {
-  let senderHex
+  var senderHex
   try {
     senderHex = sigUtil.recoverPersonalSignature(msgParams)
   } catch (err) {
@@ -75425,7 +75423,7 @@ function extend() {
 (function (Buffer){
 "use strict";
 const bip39 = require("bip39");
-const ethJSWallet = require("ethereumjs-wallet");
+const ethJSWalvar = require("ethereumjs-wallet");
 const hdkey = require("ethereumjs-wallet/hdkey");
 const debug = require("debug")("truffle-hdwallet-provider");
 const ProviderEngine = require("web3-provider-engine");
@@ -75438,7 +75436,7 @@ const Transaction = require("ethereumjs-tx");
 const ethUtil = require("ethereumjs-util");
 
 // This line shares nonce state across multiple provider instances. Necessary
-// because within truffle the wallet is repeatedly newed if it's declared in the config within a
+// because within truffle the walvar is repeatedly newed if it's declared in the config within a
 // function, resetting nonce from tx to tx. An instance can opt out
 // of this behavior by passing `shareNonce=false` to the constructor.
 // See issue #65 for more
@@ -75469,15 +75467,15 @@ class HDWalletProvider {
 
     // private helper to check if given mnemonic uses BIP39 passphrase protection
     const checkBIP39Mnemonic = mnemonic => {
-      this.hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
+      this.hdwalvar = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
 
       if (!bip39.validateMnemonic(mnemonic)) {
         throw new Error("Mnemonic invalid or undefined");
       }
 
       // crank the addresses out
-      for (let i = address_index; i < address_index + num_addresses; i++) {
-        const wallet = this.hdwallet
+      for (var i = address_index; i < address_index + num_addresses; i++) {
+        const walvar = this.hdwallet
           .derivePath(this.wallet_hdpath + i)
           .getWallet();
         const addr = `0x${wallet.getAddress().toString("hex")}`;
@@ -75489,10 +75487,10 @@ class HDWalletProvider {
     // private helper leveraging ethUtils to populate wallets/addresses
     const ethUtilValidation = privateKeys => {
       // crank the addresses out
-      for (let i = address_index; i < address_index + num_addresses; i++) {
+      for (var i = address_index; i < address_index + num_addresses; i++) {
         const privateKey = Buffer.from(privateKeys[i].replace("0x", ""), "hex");
         if (ethUtil.isValidPrivate(privateKey)) {
-          const wallet = ethJSWallet.fromPrivateKey(privateKey);
+          const walvar = ethJSWallet.fromPrivateKey(privateKey);
           const address = wallet.getAddressString();
           this.addresses.push(address);
           this.wallets[address] = wallet;
@@ -75521,7 +75519,7 @@ class HDWalletProvider {
           }
         },
         signTransaction(txParams, cb) {
-          let pkey;
+          var pkey;
           const from = txParams.from.toLowerCase();
           if (tmp_wallets[from]) {
             pkey = tmp_wallets[from].getPrivateKey();
@@ -75541,7 +75539,7 @@ class HDWalletProvider {
           if (!tmp_wallets[from]) {
             cb("Account not found");
           }
-          let pkey = tmp_wallets[from].getPrivateKey();
+          var pkey = tmp_wallets[from].getPrivateKey();
           const dataBuff = ethUtil.toBuffer(dataIfExists);
           const msgHashBuff = ethUtil.hashPersonalMessage(dataBuff);
           const sig = ethUtil.ecsign(msgHashBuff, pkey);
@@ -80412,7 +80410,7 @@ arguments[4][265][0].apply(exports,arguments)
 		    /** Cached calculation results */
 		    baseMinusT;
 
-		// Handle the basic code points: let `basic` be the number of input code
+		// Handle the basic code points: var `basic` be the number of input code
 		// points before the last delimiter, or `0` if there is none, then copy
 		// the first basic code points to the output.
 
@@ -83405,7 +83403,7 @@ function utf16Text(buf, i) {
 }
 
 // For UTF-16LE we do not explicitly append special replacement characters if we
-// end on a partial character, we simply let v8 handle that.
+// end on a partial character, we simply var v8 handle that.
 function utf16End(buf) {
   var r = buf && buf.length ? this.write(buf) : '';
   if (this.lastNeed) {
