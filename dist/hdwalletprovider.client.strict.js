@@ -8495,6 +8495,7 @@ module.exports = exports['default'];
 
 const Buffer = require('safe-buffer').Buffer
 
+"use-strict";
 module.exports = function base (ALPHABET) {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
