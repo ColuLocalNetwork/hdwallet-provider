@@ -8495,8 +8495,9 @@ module.exports = exports['default'];
 
 const Buffer = require('safe-buffer').Buffer
 
-"use-strict";
 module.exports = function base (ALPHABET) {
+  "use-strict";
+  
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
   const BASE_MAP = new Uint8Array(256)
